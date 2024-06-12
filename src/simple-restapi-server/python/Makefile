@@ -2,6 +2,18 @@ DEFAULT_CONT_NAME=simple-restapi-server-py
 APP_IMAGE_NAME=simple-restapi-server-py
 DOCKER_REPO_NAME=simple-restapi-server-py
 
+create-venv:
+	@echo "Creating virtual environment" && \
+	python3 -m venv ${CURDIR}/.venv && \
+	source ${CURDIR}/.venv/bin/activate && \
+	pip3 install -r ${CURDIR}/build/requirements.txt
+
+activate-venv:
+	@echo "Activating virtual environment" && \
+	export PYTHONPATH="${CURDIR}/src" && \
+	source ${CURDIR}/.venv/bin/activate
+
+
 build-docker-context:
 	@echo "Building docker context" && \
 	cp -r ${CURDIR}/src ${CURDIR}/build 
