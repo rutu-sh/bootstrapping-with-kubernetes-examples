@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  db:
+    # platform: linux/x86_64
+    image: mysql:5.7
+    container_name: mysql-some
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./mysql-init-scripts/:/docker-entrypoint-initdb.d/
+  
+  # sample-cont:
+  #   image: sample-container
+  #   container_name: sample-cont
+  #   restart: always
+  #   environment:
+  #     DB_USER: user
+  #     DB_PASSWORD: password
+  #     DB_NAME: sample_db
+
+volumes:
+  mysql:
+
+
+
+  
