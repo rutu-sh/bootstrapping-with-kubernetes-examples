@@ -7,23 +7,14 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: sample_db
+      MYSQL_DATABASE: demo_db
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     volumes:
       - mysql:/var/lib/mysql
-      - ./mysql-init-scripts/:/docker-entrypoint-initdb.d/
-  
-  # sample-cont:
-  #   image: sample-container
-  #   container_name: sample-cont
-  #   restart: always
-  #   environment:
-  #     DB_USER: user
-  #     DB_PASSWORD: password
-  #     DB_NAME: sample_db
+      - ./mysql-init-scripts/:/docker-entrypoint-initdb.d
 
 volumes:
   mysql:

@@ -1,4 +1,4 @@
 fastapi
 uvicorn
 structlog
-sqlalchemy
+mysql-connector-python
