@@ -21,6 +21,25 @@ class UserRequest(BaseModel):
     age: int
 
 
+class UserResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    age: int
+    created_at: datetime
+    updated_at: datetime
+
+    def model_dump(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "age": self.age,
+            "created_at": self.created_at.strftime(config.DATETIME_FORMAT),
+            "updated_at": self.updated_at.strftime(config.DATETIME_FORMAT)
+        }
+
+
 class UserDB(BaseModel):
     id: str 
     name: str
@@ -28,3 +47,13 @@ class UserDB(BaseModel):
     age: int
     created_at: datetime
     updated_at: datetime
+
+    def model_dump(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "age": self.age,
+            "created_at": self.created_at.strftime(config.DATETIME_FORMAT),
+            "updated_at": self.updated_at.strftime(config.DATETIME_FORMAT)
+        }

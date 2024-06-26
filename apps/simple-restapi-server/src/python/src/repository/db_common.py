@@ -32,7 +32,7 @@ def get_connection(database: str = config.DB_NAME) -> mysql.connector.MySQLConne
 
 
 def close_connection(cnx) -> bool:
-    _logger.info("Closing database connection", database=cnx.database)
+    _logger.info("Closing database connection")
     try:
         cnx.close()
         _logger.info("Closed database connection")

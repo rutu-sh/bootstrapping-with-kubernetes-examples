@@ -6,6 +6,7 @@ HOST = os.getenv("HOST", "0.0.0.0")
 PORT = os.getenv("PORT", "8000")
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 LOG_TIME_FORMAT = f"%Y-%m-%d %H:%M:%S"
+DATETIME_FORMAT = f"%Y-%m-%d %H:%M:%S"
 LOG_FILE_PATH = os.getenv("LOG_FILE_PATH")
 DB_USER = os.getenv("MYSQL_USER")
 DB_PASSWORD = os.getenv("MYSQL_PASSWORD")
