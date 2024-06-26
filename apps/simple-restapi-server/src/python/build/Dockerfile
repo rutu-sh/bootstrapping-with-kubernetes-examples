@@ -12,4 +12,6 @@ WORKDIR /app/src
 
 COPY src .
 
+STOPSIGNAL SIGTERM
+
 CMD "python3" "main.py"

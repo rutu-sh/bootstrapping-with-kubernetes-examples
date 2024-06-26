@@ -43,8 +43,7 @@ def close_connection(cnx) -> bool:
     
 
 
-def query(cnx: mysql.connector.MySQLConnection, query: str, params: dict = None) -> List[dict]:
-
+def read(cnx: mysql.connector.MySQLConnection, query: str, params: dict = None) -> List[dict]:
     _logger.info(f"Executing query...")
     cursor = cnx.cursor(dictionary=True)
     try:
@@ -57,6 +56,19 @@ def query(cnx: mysql.connector.MySQLConnection, query: str, params: dict = None)
         raise
     finally:
         _logger.info("Closing cursor")
-        cursor.close()
+        cursor.close() 
 
-    
+def write(cnx: mysql.connector.MySQLConnection, query: str, params: dict = None) -> bool:
+    _logger.info(f"Executing query...")
+    cursor = cnx.cursor(dictionary=True)
+    try:
+        cursor.execute(query, params)
+        cnx.commit()
+        _logger.info(f"Finished executing query.")
+        return True
+    except mysql.connector.Error as err:
+        _logger.error(f"Error executing query.", exc_info=True)
+        raise
+    finally:
+        _logger.info("Closing cursor")
+        cursor.close()

@@ -11,7 +11,7 @@ import common.config as config
 
 
 StreamHandler = logging.StreamHandler(stream=os.sys.stdout)
-FileHandler = logging.FileHandler(config.LOG_FILE_PATH)
+# FileHandler = logging.FileHandler(config.LOG_FILE_PATH)
 
 def get_logger(name: str, bind_params: dict = None, handlers: list = None) -> structlog.BoundLogger:
     """

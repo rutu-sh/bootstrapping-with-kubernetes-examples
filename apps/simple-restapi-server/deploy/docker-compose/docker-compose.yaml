@@ -1,0 +1,33 @@
+version: '3.7'
+name: simple-restapi-server
+services:
+  db:
+    # platform: linux/x86_64
+    image: mysql:5.7
+    container_name: mysql-db
+    restart: always
+    env_file:
+      - ./env/db.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./mysql-init-scripts/:/docker-entrypoint-initdb.d
+
+  simple-restapi-server:
+    # platform: linux/x86_64
+    image: simple-restapi-server-${LANG}:${TAG}
+    container_name: api-server
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./env/db.env
+      - ./env/service.env
+
+volumes:
+  mysql:
+
+
+
+  
