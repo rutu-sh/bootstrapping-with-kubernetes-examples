@@ -27,7 +27,7 @@ clear-docker-context:
 build: build-docker-context
 	@echo "Building app" && \
 	cd ${CURDIR}/build && \
-	docker build --no-cache -t ${APP_IMAGE_NAME}:$(TAG) . 
+	docker build --no-cache --platform linux/amd64 -t ${APP_IMAGE_NAME}:$(TAG) .
 	$(MAKE) clear-docker-context
 
 run:

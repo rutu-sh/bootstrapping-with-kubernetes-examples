@@ -48,7 +48,7 @@ def create_user(user: models.UserRequest) -> models.UserResponse:
 
 
 def get_users() -> List[models.UserResponse]:
-    _logger.info("Getting users...")
+    _logger.info("getting users...")
     try:
         users_db = user_repository.get_users()
         users = [
@@ -70,12 +70,12 @@ def get_users() -> List[models.UserResponse]:
         # handle other errors
         _logger.error("error getting users", err_msg=str(e))
         raise errors.InternalServerError(errors.ServiceErrorCodes.INTERNAL_SERVER_ERROR)
-    _logger.info("Got users")
+    _logger.info("got users")
     return users
 
 
 def get_user_by_id(user_id: str) -> models.UserResponse:
-    _logger.info("Getting user by id...")
+    _logger.info("getting user by id...")
     try:
         user_db = user_repository.get_user_by_id(user_id)
         user = models.UserResponse(
@@ -96,12 +96,12 @@ def get_user_by_id(user_id: str) -> models.UserResponse:
         # handle other errors
         _logger.error("error getting user by id", err_msg=str(e))
         raise errors.InternalServerError(errors.ServiceErrorCodes.INTERNAL_SERVER_ERROR)
-    _logger.info("Got user by id")
+    _logger.info("got user by id")
     return user
 
 
 def update_user_by_id(user_id: str, user: models.UserRequest) -> models.UserResponse:
-    _logger.info("Updating user by id...")
+    _logger.info("updating user by id...")
     try:
         user_update = models.User(
             id=user_id,
@@ -135,7 +135,7 @@ def update_user_by_id(user_id: str, user: models.UserRequest) -> models.UserResp
 
 
 def delete_user_by_id(user_id: str) -> bool:
-    _logger.info("Deleting user by id...")
+    _logger.info("deleting user by id...")
     try:
         user_repository.delete_user_by_id(user_id)
     except errors.RepositoryError as e:
@@ -148,5 +148,5 @@ def delete_user_by_id(user_id: str) -> bool:
         # handle other errors
         _logger.error("error deleting user by id", err_msg=str(e))
         raise errors.InternalServerError(errors.ServiceErrorCodes.INTERNAL_SERVER_ERROR)
-    _logger.info("User deleted")
+    _logger.info("user deleted")
     return True

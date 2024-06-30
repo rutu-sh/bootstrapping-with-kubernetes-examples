@@ -65,3 +65,15 @@ async def update_user(user_id: str, user: models.UserRequest) -> models.UserResp
         _logger.error("error updating user", err_msg=str(e))
         return _handle_service_error(e)
     return user
+
+
+@router.delete("/{user_id}")
+async def delete_user(user_id: str) -> JSONResponse:
+    _logger.info("Deleting user...")
+    try:
+        user_service.delete_user_by_id(user_id)
+    except errors.ServiceError as e:
+        # handle service errors
+        _logger.error("error deleting user", err_msg=str(e))
+        return _handle_service_error(e)
+    return JSONResponse(status_code=204, content={"message": "user deleted"})

@@ -27,20 +27,14 @@ def _is_user_exists(cnx, user_id: str) -> bool:
         raise errors.DatabaseError(errors.RepositoryErrorCodes.DATABASE_READ_FAILED)
     
 
-def _convert_user_db_to_user(user_db: models.UserDB) -> models.User:
+def _convert_user_record_to_user_db(user: dict) -> models.UserDB:
     try:
-        user = models.User(
-            id=user_db.id,
-            name=user_db.name,
-            email=user_db.email,
-            age=user_db.age,
-            created_at=user_db.created_at,
-            updated_at=user_db.updated_at
-        )
-        return user
+        user_db = models.UserDB(**user)
+        return user_db
     except Exception as e:
-        _logger.error("error converting user db to user", exc_info=True)
+        _logger.error("error converting user record to user db", exc_info=True)
         raise errors.UserError(errors.RepositoryErrorCodes.USER_INVALID_RECORD)
+
 
 
 def create_user(user: models.User) -> models.UserDB:
@@ -90,7 +84,7 @@ def get_users() -> List[models.UserDB]:
         _logger.info("closing connection")
         db_common.close_connection(cnx) 
     
-    users = [_convert_user_db_to_user(user) for user in results]
+    users = [_convert_user_record_to_user_db(user) for user in results]
     _logger.info("fetched users")
     return users
 
@@ -107,7 +101,7 @@ def get_user_by_id(user_id: str) -> models.UserDB:
         if len(results) == 0:
             raise errors.UserError(errors.RepositoryErrorCodes.USER_NOT_FOUND)
         
-        return _convert_user_db_to_user(results[0])
+        return _convert_user_record_to_user_db(results[0])
     except Exception as e:
         _logger.error("error getting user by id", exc_info=True)
         raise

@@ -2,7 +2,7 @@ version: '3.7'
 name: simple-restapi-server
 services:
   db:
-    # platform: linux/x86_64
+    platform: linux/x86_64
     image: mysql:5.7
     container_name: mysql-db
     restart: always
@@ -14,9 +14,10 @@ services:
       - mysql:/var/lib/mysql
       - ./mysql-init-scripts/:/docker-entrypoint-initdb.d
 
-  simple-restapi-server:
-    # platform: linux/x86_64
+  api-server:
+    platform: linux/x86_64
     image: simple-restapi-server-${LANG}:${TAG}
+    pull_policy: never
     container_name: api-server
     restart: always
     ports:
