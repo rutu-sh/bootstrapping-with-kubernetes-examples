@@ -27,7 +27,7 @@ clear-docker-context:
 build: build-docker-context
 	@echo "Building app" && \
 	cd ${CURDIR}/build && \
-	docker build --no-cache --platform linux/amd64 -t ${APP_IMAGE_NAME}:$(TAG) .
+	docker build --no-cache --platform linux/amd64,linux/arm64 -t ${APP_IMAGE_NAME}:$(TAG) . 
 	$(MAKE) clear-docker-context
 
 run:
@@ -44,7 +44,9 @@ stop:
 publish: build
 	@echo "Publishing app" && \
 	docker tag ${APP_IMAGE_NAME}:$(TAG) ${DOCKER_REGISTRY}/$(DOCKER_REPO_NAME):$(TAG) && \
+	docker tag ${APP_IMAGE_NAME}:$(TAG) ${DOCKER_REGISTRY}/$(DOCKER_REPO_NAME):latest && \
 	docker push ${DOCKER_REGISTRY}/${APP_IMAGE_NAME}:$(TAG) && \
+	docker push ${DOCKER_REGISTRY}/${APP_IMAGE_NAME}:latest && \
 	echo "Published ${DOCKER_REGISTRY}/${APP_IMAGE_NAME}:$(TAG) successfully"
 
 
@@ -52,3 +54,6 @@ publish: build
 all:
 	$(MAKE) build-app && \
 	$(MAKE) publish
+
+
+# docker run --rm --name app-test -p 8000:8000 rutush10/simple-restapi-server-py:v0.0.1

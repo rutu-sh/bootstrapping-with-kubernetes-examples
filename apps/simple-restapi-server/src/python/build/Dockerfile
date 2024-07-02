@@ -12,6 +12,7 @@ WORKDIR /app/src
 
 COPY src .
 
-STOPSIGNAL SIGTERM
+# add signal to stop the container
+STOPSIGNAL SIGINT
 
 CMD "python3" "main.py"
