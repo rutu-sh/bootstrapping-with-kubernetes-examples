@@ -18,3 +18,18 @@ spec:
       protocol: TCP
       name: https
 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-observability
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx-ingress
+  ports:
+    - port: 9090
+      targetPort: 9113
+      protocol: TCP
+      name: prometheus

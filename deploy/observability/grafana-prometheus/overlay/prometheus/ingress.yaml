@@ -1,24 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: grafana-ingress
+  name: prometheus-ingress
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - observability.rutu-sh.com
-      secretName: grafana-tls-secret
+        - prometheus.rutu-sh.com
+      secretName: prometheus-tls-secret
   rules:
-    - host: observability.rutu-sh.com
+    - host: prometheus.rutu-sh.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: grafana-svc
+                name: prometheus-svc
                 port:
-                  number: 3000
+                  name: web
   defaultBackend:
     service:
       name: grafana-svc
