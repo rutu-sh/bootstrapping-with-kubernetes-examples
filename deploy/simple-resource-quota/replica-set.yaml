@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: simple-replicaset
+  namespace: simple-namespace
+  labels:
+    env: dev
+    app: simple-replicaset
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: simple-replicaset
+  template:
+    metadata:
+      labels:
+        app: simple-replicaset
+    spec:
+      containers:
+      - name: apiserver
+        image: rutush10/simple-restapi-server-py:v0.0.1
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+  

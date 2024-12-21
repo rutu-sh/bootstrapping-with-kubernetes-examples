@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: simple-resource-quota
+  namespace: simple-namespace
+spec:
+  hard:
+    cpu: "3"
+    memory: 10Gi
+    pods: "3"
